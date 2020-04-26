@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/templateBack.xhtml">
+		
+<ui:define name="content">
+
+	<h:form id="form">
+	<h:panelGrid columns="2">
+	<h:outputText value="Header"/>
+	<h:inputText value="#{requestBean.header}"/>
+	<h:outputText value="Title"/>
+	<h:inputText value="#{requestBean.title}"/>
+	<h:outputText value="Email Address"/>
+	<h:inputText value="#{requestBean.mailAdress}"/>  
+    
+
+	
+	<h:commandButton actionListener="#{requestBean.sendMail()}" value="Send" action="/index" />
+	
+	
+	</h:panelGrid>
+	</h:form>
+
+	</ui:define>
+
+	
+	
+	
+	
+	</ui:composition>

@@ -1,0 +1,138 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/templateBack.xhtml">
+<ui:define name="content">
+	
+			<style type="text/css">
+.ui-panel, div.ui-state-hover {
+	margin: 20px;
+	width: 300px;
+}
+
+.Missions {
+	margin-left: 20px;
+}
+
+.Projects {
+	margin-left: 60px;
+}
+
+.Budgets {
+	margin-left: 100px;
+}
+
+.ui-dashboard-column {
+	width: 320px;
+}
+
+#header {
+	text-align: center;
+	display: flex;
+	justify-content: space-between;
+}
+</style>
+
+			<div>
+				<div style="height: 120px" id="header">
+					<h:form>
+
+						<p:dashboard id="board" model="#{dashboardBean.model}">
+
+
+							<p:panel id="Missions" header="Missions" class="Missions">
+								<h:outputText value="#{dashboardBean.nbrMissions}" />
+							</p:panel>
+
+							<p:panel id="Projects" header="Projects" class="Projects">
+								<h:outputText value="#{dashboardBean.nbrProjects}" />
+							</p:panel>
+
+							<p:panel id="Budgets" header="Budgets" class="Budgets">
+								<h:outputText value="#{dashboardBean.budget} $" />
+							</p:panel>
+
+						</p:dashboard>
+
+						<div style="clear: both" />
+
+					</h:form>
+				</div>
+
+				<h:panelGrid columns="2" columnClasses="left,right"
+					style="width:100%">
+					<p:chart type="line" model="#{dashboardBean.profitability}"
+						style="height:300px;width:800px" widgetVar="Line"></p:chart>
+					<p:commandButton type="button" value="Export" icon="ui-icon-exlink"
+						onclick="exportLine()"></p:commandButton>
+				</h:panelGrid>
+
+				<h:panelGrid columns="4" columnClasses="left" style="width:100%">
+					<p:chart type="bar" model="#{dashboardBean.barModel}"
+						style="height:300px;width:400px" widgetVar="chart"></p:chart>
+					<p:commandButton type="button" value="Export" icon="ui-icon-exlink"
+						onclick="exportChart()"></p:commandButton>
+
+					<p:chart type="pie" model="#{dashboardBean.pieModel}"
+						style="height:300px;width:400px" widgetVar="Pie"></p:chart>
+					<p:commandButton type="button" value="Export" icon="ui-icon-exlink"
+						onclick="exportPie()"></p:commandButton>
+				</h:panelGrid>
+
+				<h:panelGrid columns="4" columnClasses="left,right"
+					style="width:100%">
+					<p:chart type="pie" model="#{dashboardBean.missionspieModel}"
+						style="height:300px;width:400px" widgetVar="Pie1"></p:chart>
+					<p:commandButton type="button" value="Export" icon="ui-icon-exlink"
+						onclick="exportPie1()"></p:commandButton>
+
+					<p:chart type="pie" model="#{dashboardBean.projectspieModel}"
+						style="height:300px;width:400px" widgetVar="Pie2"></p:chart>
+					<p:commandButton type="button" value="Export" icon="ui-icon-exlink"
+						onclick="exportPie2()"></p:commandButton>
+				</h:panelGrid>
+
+
+				<p:dialog widgetVar="dlg" showEffect="fade" modal="true"
+					header="Chart as an Image" resizable="false">
+					<p:outputPanel id="output" layout="block"
+						style="width:500px;height:310px"></p:outputPanel>
+				</p:dialog>
+
+
+				<a href="/Map-PI-web/template/NewFile.jsf"
+					style="float: left; margin: 13px"> <strong
+					style="font-size: 18px;">Print Page </strong>
+				</a>
+			</div>
+			<script type="text/javascript">
+
+ 	function exportChart(){
+ 	 	$('#output').empty().append(PF('chart').exportAsImage());
+ 	 	PF('dlg').show();
+ 	 	}
+ 	function exportPie(){
+ 	 	$('#output').empty().append(PF('Pie').exportAsImage());
+ 	 	PF('dlg').show();
+ 	 	}
+	function exportPie1(){
+ 	 	$('#output').empty().append(PF('Pie1').exportAsImage());
+ 	 	PF('dlg').show();
+ 	 	}
+	function exportPie2(){
+ 	 	$('#output').empty().append(PF('Pie2').exportAsImage());
+ 	 	PF('dlg').show();
+ 	 	}
+	function exportLine(){
+ 	 	$('#output').empty().append(PF('Line').exportAsImage());
+ 	 	PF('dlg').show();
+ 	 	}
+</script> 
+		
+</ui:define>
+
+</ui:composition>
